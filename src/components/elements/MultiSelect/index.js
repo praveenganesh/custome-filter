@@ -50,18 +50,22 @@ const MultiSelectDropdown = ({ onFilterChange, filter }) => {
   };
 
   return (
-    <FormControl>
+    <FormControl onClick={handleMenuOpen}>
       <InputLabel style={{ marginLeft: "10px" }}>{label}</InputLabel>
       <StdSelect
         anchorEl={anchorEl}
         multiple
-        onClick={handleMenuOpen}
         onExited={handleClose}
         value={selectedOptions}
         open={Boolean(anchorEl)}
         style={{ width: 200 }}
         onChange={handleOptionChange}
-        renderValue={(selected) => selected.join(", ")}
+        renderValue={(selected) => {
+          if (!anchorEl) {
+            return selectedValue.filter(Boolean).join(", ");
+          }
+          return selectedOptions.filter(Boolean).join(", ");
+        }}
       >
         {options.map((option, i) => (
           <MenuItem

@@ -141,6 +141,18 @@ function FilterStrip({ filter, onFilterChange }) {
         variant="standard"
         style={{ width: "200px" }}
         onChange={handleOptionChange}
+        renderValue={(selected) => {
+          if (!anchorEl) {
+            if (
+              filter.selectedValue.startDate &&
+              filter.selectedValue.endDate
+            ) {
+              return `${filter.selectedValue.startDate} to ${filter.selectedValue.endDate}`;
+            }
+            return "";
+          }
+          return selectedOption;
+        }}
       >
         {renderOptions()}
       </Select>
